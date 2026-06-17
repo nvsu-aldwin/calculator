@@ -149,8 +149,25 @@
                 // Handle Math Operators (+, -, *, /, =)
                 else if (event.target.classList.contains('btn-operator')) {
                     if (buttonValue === '=') {
-                        // TODO: Calculate the result using previousInput, activeOperator, and currentInput
-                        // TODO: Display the result and reset state variables appropriately
+                        // Ensure we have both numbers and an operator before calculating
+                        if (previousInput !== '' && currentInput !== '' && activeOperator !== null) {
+                            const prev = parseFloat(previousInput);
+                            const current = parseFloat(currentInput);
+                            let result = 0;
+
+                            // Calculate based on the active operator (Addition only for now)
+                            if (activeOperator === '+') {
+                                result = prev + current;
+                            }
+
+                            // Update the state with the result
+                            currentInput = result.toString();
+                            display.value = currentInput;
+                            
+                            // Reset previous input and operator
+                            previousInput = '';
+                            activeOperator = null;
+                        }
                         
                     } else {
                         // Prevent storing if there's no current input to operate on
